@@ -579,5 +579,20 @@ cmp.setup {
   },
 }
 
+-- Default folding settings
+vim.o.foldenable = true                       -- Enable folding
+vim.o.foldlevel = 99                          -- Start with all folds open
+vim.o.foldmethod = "expr"                     -- Use Tree-sitter folding by default
+vim.o.foldexpr = "nvim_treesitter#foldexpr()" -- Tree-sitter folding expression
+
+-- Remember folds when reopening files
+vim.cmd([[
+  augroup RememberFolds
+    autocmd!
+    autocmd BufWinLeave *.* mkview
+    autocmd BufWinEnter *.* silent! loadview
+  augroup END
+]])
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
